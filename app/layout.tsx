@@ -5,6 +5,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { Providers } from "@/components/ThemProvider";
 import { siteConfig } from "@/config/site";
 import GlobalLayout from "@/components/GlobalLayout";
+import SolanaProvider from "@/components/SolanaProvider";
 
 export const metadata: Metadata = {
   title: {
@@ -38,7 +39,9 @@ export default async function RootLayout({
       <body>
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
           <NextIntlClientProvider messages={messages}>
-            <GlobalLayout>{children}</GlobalLayout>
+            <SolanaProvider>
+              <GlobalLayout>{children}</GlobalLayout>
+            </SolanaProvider>
           </NextIntlClientProvider>
         </Providers>
       </body>

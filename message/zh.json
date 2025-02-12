@@ -4,5 +4,14 @@
     "WeChart": "微信",
     "Monitor": "监控",
     "Holding": "持仓"
+  },
+
+  "SolanaConnectButton": {
+    "Connect": "连接",
+    "Connecting": "连接中",
+    "Disconnect": "断开",
+    "Connected": "已连接",
+    "ConnectWallet": "连接钱包",
+    "DisconnectWallet": "断开钱包"
   }
 }

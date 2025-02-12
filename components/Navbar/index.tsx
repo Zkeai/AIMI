@@ -19,8 +19,8 @@ import clsx from "clsx";
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/ThemSwitch";
 import { GithubIcon, SearchIcon, Logo } from "@/components/GlobalIcons";
+import { ConnectButton } from "@/components/SolanaConnectButton";
 import LangSwitch from "@/components/LangSwitch";
-import { Button } from "@heroui/button";
 
 export const Navbar = () => {
   const t = useTranslations("NavBar");
@@ -28,8 +28,8 @@ export const Navbar = () => {
     <Input
       aria-label="Search"
       classNames={{
-        inputWrapper: "bg-default-100",
-        input: "text-sm",
+        inputWrapper: "bg-default-100 w-full", // 确保输入框的父容器宽度为100%
+        input: "text-sm w-full", // 确保输入框本身宽度为100%
       }}
       endContent={
         <Kbd className="hidden lg:inline-block" keys={["command"]}>
@@ -75,8 +75,8 @@ export const Navbar = () => {
       </NavbarContent>
 
       {/* PC端搜索栏居中 */}
-      <NavbarContent className="hidden lg:flex basis-3/5 justify-center">
-        <NavbarItem>{searchInput}</NavbarItem>
+      <NavbarContent className="hidden lg:flex basis-1/5 justify-center  ">
+        <NavbarItem className="w-full">{searchInput}</NavbarItem>
       </NavbarContent>
 
       <NavbarContent
@@ -87,8 +87,8 @@ export const Navbar = () => {
           <ThemeSwitch />
           <LangSwitch />
         </NavbarItem>
-        <NavbarItem className="hidden sm:flex gap-2 ml-24">
-          <Button>Login</Button>
+        <NavbarItem className="hidden sm:flex gap-2 ml-5">
+          <ConnectButton />
         </NavbarItem>
       </NavbarContent>
 

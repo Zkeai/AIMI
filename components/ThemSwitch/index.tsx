@@ -6,7 +6,7 @@ import { useSwitch } from "@heroui/switch";
 import { useTheme } from "next-themes";
 import { useIsSSR } from "@react-aria/ssr";
 import clsx from "clsx";
-
+import { useThemeStore } from "@/store/useTheme"; // 导入 Zustand 状态
 import { SunFilledIcon, MoonFilledIcon } from "@/components/GlobalIcons";
 
 export interface ThemeSwitchProps {
@@ -18,11 +18,13 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({
   className,
   classNames,
 }) => {
+  const { themeMode, setKitTheme } = useThemeStore(); // 获取 themeMode 和 setTheme 方法
   const { theme, setTheme } = useTheme();
   const isSSR = useIsSSR();
 
   const onChange = () => {
     theme === "light" ? setTheme("dark") : setTheme("light");
+    setKitTheme(theme === "light" ? "dark" : "light");
   };
 
   const {
@@ -71,9 +73,9 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({
         })}
       >
         {!isSelected || isSSR ? (
-          <SunFilledIcon size={22} />
+          <SunFilledIcon size={24} />
         ) : (
-          <MoonFilledIcon size={22} />
+          <MoonFilledIcon size={24} />
         )}
       </div>
     </Component>

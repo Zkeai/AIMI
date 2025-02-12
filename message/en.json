@@ -4,5 +4,14 @@
     "WeChart": "WeChart",
     "Monitor": "Monitor",
     "Holding": "Holding"
+  },
+
+  "SolanaConnectButton": {
+    "Connect": "Connect",
+    "Disconnect": "Disconnect",
+    "Connecting": "Connecting",
+    "Connected": "Connected",
+    "ConnectWallet": "Connect Wallet",
+    "DisconnectWallet": "Disconnect Wallet"
   }
 }

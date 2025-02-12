@@ -19,6 +19,7 @@ export default function LangSwitch() {
     <Button
       variant="ghost"
       size="icon"
+      className="text-[18px]"
       onClick={() => onChangeLang(locale === ZH ? EN : ZH)}
     >
       {locale === ZH ? "中" : "EN"}
