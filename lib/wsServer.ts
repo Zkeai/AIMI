@@ -21,7 +21,6 @@ wss.on("connection", (ws) => {
     const pingInterval = setInterval(() => {
         if (ws.readyState === WebSocket.OPEN) {
             ws.ping(); // 发送 WebSocket 原生 ping
-            console.log("🔄 发送 ping 以保持连接");
         } else {
             clearInterval(pingInterval); // 连接关闭后清除定时器
         }

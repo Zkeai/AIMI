@@ -3,3 +3,10 @@ export const getPumpHistory = async (devAddress: string) => {
     const data = await res.json()
     return data.length
 }
+export const getPumpCoinInfo = async (address: string) => {
+    const res = await fetch(`https://pump.mypinata.cloud/ipfs/${address}`)
+    const data = await res.json()
+    return data
+}
+
+
