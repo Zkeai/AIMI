@@ -15,7 +15,7 @@ export async function GET(req: NextRequest) {
 
         const res = await getPumpDetail(address);
 
-        return NextResponse.json({ success: true, message: res }, { status: 200 });
+        return NextResponse.json({ success: true, data: res }, { status: 200 });
 
     } catch (error) {
         return NextResponse.json({ success: false, error: error }, { status: 500 });

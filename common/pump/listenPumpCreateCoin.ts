@@ -61,11 +61,12 @@ class SolanaListener extends EventEmitter {
 
                         //获取dev历史发币次数
                         const historyLength = await getPumpHistory(devAddress)
+                        console.log(historyLength)
 
 
                         //获取coininfo
                         const coinInfo = await getPumpDetail(mintAddress)
-
+                        console.log(coinInfo)
                         const symbol = coinInfo?.data.market.meta.symbol
                         const name = coinInfo?.data.market.meta.name
                         const image = coinInfo?.data.market.meta.logo

@@ -10,15 +10,15 @@ export const siteConfig = {
     },
     {
       label: "WeChart",
-      href: "/docs",
+      href: "/wechat",
     },
     {
       label: "Monitor",
-      href: "/pricing",
+      href: "/monitor",
     },
     {
       label: "Holding",
-      href: "/blog",
+      href: "/holding",
     },
 
   ],

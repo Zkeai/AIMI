@@ -1,7 +1,4 @@
-import { SVGProps } from "react";
-
-export type IconSvgProps = SVGProps<SVGSVGElement> & {
-  size?: number;
-};
-
+export * from "./svg";
 export * from "./pump";
+export * from "./wechat";
+export * from "./debot";

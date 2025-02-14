@@ -8,6 +8,9 @@
     "start": "next start",
     "lint": "eslint . --ext .ts,.tsx -c .eslintrc.json --fix"
   },
+  "resolutions": {
+    "lit": "3.1.0"
+  },
   "dependencies": {
     "@heroui/button": "2.2.9",
     "@heroui/card": "^2.2.10",

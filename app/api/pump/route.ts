@@ -12,7 +12,7 @@ export async function GET() {
 
 
 
-        return NextResponse.json({ success: true, message: "交易流已启动" }, { status: 200 });
+        return NextResponse.json({ success: true, data: "交易流已启动" }, { status: 200 });
 
     } catch (error) {
         return NextResponse.json({ success: false, error: error }, { status: 500 });
