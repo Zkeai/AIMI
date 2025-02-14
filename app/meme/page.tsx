@@ -3,24 +3,24 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import { Card, CardBody } from "@heroui/card";
 import {
   Copy,
-  Users,
-  UserRoundCheck,
-  UserRoundX,
   SlidersHorizontal,
   Radio,
+  ShoppingCart,
+  Globe,
+  GitlabIcon,
 } from "lucide-react";
-import { DebotNewCoinInfo } from "@/types/debot";
-import { TwitterIcon } from "@/components/GlobalIcons";
+import { GithubIcon, TwitterIcon } from "@/components/GlobalIcons";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { PumpCoinInfoResponse } from "@/types";
 
 // WebSocket 状态管理
 const useWebSocket = (url: string) => {
-  const [messages, setMessages] = useState<DebotNewCoinInfo[]>([]);
+  const [messages, setMessages] = useState<PumpCoinInfoResponse[]>([]);
   const [isConnected, setIsConnected] = useState(false);
   const ws = useRef<WebSocket | null>(null);
   const reconnectInterval = useRef<NodeJS.Timeout | null>(null);
@@ -154,6 +154,34 @@ const Meme = () => {
                             />
                           </a>
                         )}
+
+                        {msg.website && (
+                          <a
+                            href={msg.website}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="website Profile"
+                          >
+                            <Globe
+                              size={12}
+                              className="cursor-pointer hover:text-blue-500"
+                            />
+                          </a>
+                        )}
+
+                        {msg.telegram && (
+                          <a
+                            href={msg.telegram}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="telegram Profile"
+                          >
+                            <GithubIcon
+                              size={12}
+                              className="cursor-pointer hover:text-blue-500"
+                            />
+                          </a>
+                        )}
                       </div>
 
                       {/* Mint 地址 */}
@@ -169,26 +197,27 @@ const Meme = () => {
                       </div>
 
                       {/* 开发者持仓信息 */}
-                      <TooltipProvider>
+                      {/* <TooltipProvider>
                         <Tooltip>
                           <TooltipTrigger asChild>
-                            <div className="text-xs text-gray-500 flex items-center cursor-pointer">
-                              {!msg.dev_position_clear ? (
-                                <UserRoundCheck className="w-3 h-3 text-green-500" />
-                              ) : (
-                                <UserRoundX className="w-3 h-3 text-red-500" />
-                              )}
+                            <div className="text-xs text-gray-500 flex items-center cursor-pointer gap-2">
+                              <ShoppingCart className="w-3 h-3 text-green-500">
+                                {msg.buy_5m}
+                              </ShoppingCart>
+                              <ShoppingCart className="w-3 h-3 text-red-500">
+                                {msg.sell_5m}
+                              </ShoppingCart>
                             </div>
                           </TooltipTrigger>
                           <TooltipContent>
                             <p>
-                              {msg.dev_position_clear
-                                ? "开发者已清仓"
-                                : "开发者持仓未清理"}
+                              {msg.sell_5m
+                                ? "5分钟内出售笔数"
+                                : "5分钟内购买笔数"}
                             </p>
                           </TooltipContent>
                         </Tooltip>
-                      </TooltipProvider>
+                      </TooltipProvider> */}
                     </div>
                   </div>
 
@@ -216,15 +245,15 @@ const Meme = () => {
                         <Tooltip>
                           <TooltipTrigger asChild>
                             <span className="text-xs text-gray-500 cursor-pointer">
-                              MC: ${msg.mkt_cap}
+                              MC: ${msg.mc}
                             </span>
                           </TooltipTrigger>
                           <TooltipContent>
-                            <p>完全稀释估值（FDV）：${msg.mkt_cap}</p>
+                            <p>市值：${msg.mc}</p>
                           </TooltipContent>
                         </Tooltip>
 
-                        <Tooltip>
+                        {/* <Tooltip>
                           <TooltipTrigger asChild>
                             <span className="text-xs text-gray-500 flex items-center cursor-pointer">
                               <Users className="w-3 h-3 mr-1" />
@@ -234,9 +263,9 @@ const Meme = () => {
                           <TooltipContent>
                             <p>持币地址数量：{msg.holder}</p>
                           </TooltipContent>
-                        </Tooltip>
+                        </Tooltip> */}
 
-                        <Tooltip>
+                        {/* <Tooltip>
                           <TooltipTrigger asChild>
                             <span className="text-xs text-gray-500 cursor-pointer">
                               1h V: ${msg.volume_1h}
@@ -256,7 +285,7 @@ const Meme = () => {
                           <TooltipContent>
                             <p>过去 1 小时涨跌幅：{msg.percent1h}%</p>
                           </TooltipContent>
-                        </Tooltip>
+                        </Tooltip> */}
                       </div>
                     </TooltipProvider>
                   </div>

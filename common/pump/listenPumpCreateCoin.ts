@@ -1,11 +1,11 @@
 import { EventEmitter } from 'events';
 import dotenv from "dotenv";
 import { Connection, ConnectionConfig, PublicKey } from "@solana/web3.js";
-import { getPumpHistory } from ".";
+import { getPumpCoinInfoByMint, getPumpHistory } from ".";
 
 dotenv.config();
 import WebSocket from "ws";
-import { getPumpDetail } from '../debot';
+
 
 class SolanaListener extends EventEmitter {
     private connection: Connection;
@@ -61,23 +61,25 @@ class SolanaListener extends EventEmitter {
 
                         //获取dev历史发币次数
                         const historyLength = await getPumpHistory(devAddress)
-                        console.log(historyLength)
+
+
 
 
                         //获取coininfo
-                        const coinInfo = await getPumpDetail(mintAddress)
-                        console.log(coinInfo)
-                        const symbol = coinInfo?.data.market.meta.symbol
-                        const name = coinInfo?.data.market.meta.name
-                        const image = coinInfo?.data.market.meta.logo
-                        const twitter = coinInfo?.data.market.social.twitter
-                        const holder = coinInfo?.data.coin.holders
-                        const mkt_cap = coinInfo?.data.coin.mkt_cap.toFixed(2)
-                        const volume_1h = coinInfo?.data.coin.volume_1h.toFixed(2)
-                        const dev_position_clear = coinInfo?.data.dev.position_clear
-                        const percent1h = (coinInfo?.data.coin.percent1h! * 100).toFixed(2)
+                        const coinInfo = await getPumpCoinInfoByMint(mintAddress)
+
+                        const symbol = coinInfo.symbol
+                        const image = coinInfo.image_uri
+                        const twitter = coinInfo.twitter
+                        const telegram = coinInfo.telegram
+                        const website = coinInfo.website
+                        const mc = coinInfo.usd_market_cap.toFixed(2)
+
+
+
+
                         // 通过 WebSocket 发送数据到前端
-                        const data = { devAddress, mintAddress, historyLength, symbol, name, image, twitter, holder, mkt_cap, volume_1h, dev_position_clear, percent1h };
+                        const data = { devAddress, mintAddress, historyLength, symbol, image, twitter, mc, website, telegram };
 
 
 
@@ -130,6 +132,15 @@ class SolanaListener extends EventEmitter {
                 client.send(JSON.stringify(data));
             }
         });
+    }
+}
+function formatNumber(num: number) {
+    if (num >= 1000000) {
+        return (num / 1000000).toFixed(2) + 'm';
+    } else if (num >= 1000) {
+        return (num / 1000).toFixed(2) + 'k';
+    } else {
+        return num.toString();
     }
 }
 
