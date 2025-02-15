@@ -13,5 +13,9 @@
     "Connected": "已连接",
     "ConnectWallet": "连接钱包",
     "DisconnectWallet": "断开钱包"
+  },
+  "Wechat": {
+    "hotDiscussion": "实时热议",
+    "statistics": "热门统计"
   }
 }

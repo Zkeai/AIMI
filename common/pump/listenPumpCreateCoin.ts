@@ -41,6 +41,7 @@ class SolanaListener extends EventEmitter {
     }
 
     async startListening() {
+        console.log("pump 开始监听")
         if (this.isListening) {
             return { status: "already_listening" };
         }
@@ -84,8 +85,7 @@ class SolanaListener extends EventEmitter {
 
 
 
-
-                        this.broadcast(data);
+                        this.broadcast("newPump", data);
 
 
 
@@ -109,7 +109,7 @@ class SolanaListener extends EventEmitter {
         await this.connection.removeOnLogsListener(this.subscriptionId);
         this.subscriptionId = null;
         this.isListening = false;
-
+        console.log("pump 监听已停止");
 
         return { status: "stopped" };
     }
@@ -124,12 +124,16 @@ class SolanaListener extends EventEmitter {
     /**
      * 通过 WebSocket 发送数据
      */
-    private broadcast(data: object) {
+    private broadcast(type: string, data: object) {
+
         if (!this.wss) return;
 
+
         this.wss.clients.forEach(client => {
+
             if (client.readyState === WebSocket.OPEN) {
-                client.send(JSON.stringify(data));
+
+                client.send(JSON.stringify({ type, data }));
             }
         });
     }

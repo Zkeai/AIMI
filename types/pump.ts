@@ -81,6 +81,7 @@ export interface PumpCoinInfoResponse {
 
 export interface PumpCoinInfo {
     mint: string,
+    holders: number,
     name: string,
     symbol: string,
     description: string,

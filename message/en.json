@@ -13,5 +13,9 @@
     "Connected": "Connected",
     "ConnectWallet": "Connect Wallet",
     "DisconnectWallet": "Disconnect Wallet"
+  },
+  "Wechat": {
+    "hotDiscussion": "Discussion",
+    "statistics": "Statistics"
   }
 }

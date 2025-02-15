@@ -1,50 +1,32 @@
 import WebSocket from "ws";
-import { solanaListener } from "@/common/pump/listenPumpCreateCoin";
+import EventEmitter from "events";
 
-const wss = new WebSocket.Server({ noServer: true });
+// 定义一个事件发射器，用于管理监听器
+class SolanaListener extends EventEmitter {
+    isListening: boolean = false;
 
-let activeConnections = 0; // 记录活跃的 WebSocket 连接数
+    // 启动监听
+    startListening(type: "pump" | "wechat") {
+        if (this.isListening) return;
+        this.isListening = true;
 
-solanaListener.setWebSocketServer(wss);
+        console.log(`开始监听 ${type} 数据`);
 
-wss.on("connection", (ws) => {
-    console.log("✅ 新 WebSocket 连接");
-
-
-    if (!solanaListener.isListening) {
-        solanaListener.startListening();
+        // 模拟监听数据并推送
+        setInterval(() => {
+            this.emit(`new${type.charAt(0).toUpperCase() + type.slice(1)}`, { message: `${type} 数据` });
+        }, 5000); // 每 5 秒模拟一次数据推送
     }
 
-    activeConnections++;
+    // 停止监听
+    stopListening(type: "pump" | "wechat") {
+        this.isListening = false;
+        console.log(`停止监听 ${type} 数据`);
+    }
+}
 
-    // **定期发送 ping，防止连接被关闭**
-    const pingInterval = setInterval(() => {
-        if (ws.readyState === WebSocket.OPEN) {
-            ws.ping(); // 发送 WebSocket 原生 ping
-        } else {
-            clearInterval(pingInterval); // 连接关闭后清除定时器
-        }
-    }, 30000); // 每 30 秒发送一次（根据你的服务器配置调整）
-
-    ws.on("close", () => {
-        activeConnections--;
-        clearInterval(pingInterval); // 清除 ping 定时器
-        console.log("❌ 客户端断开连接，当前活跃连接数:", activeConnections);
-
-        // **如果所有 WebSocket 客户端都断开，则停止监听**
-        if (activeConnections === 0) {
-            solanaListener.stopListening();
-            console.log("⏹️ 所有客户端断开，停止监听");
-        }
-    });
-
-    solanaListener.on("newPump", (data) => {
-
-        if (ws.readyState === WebSocket.OPEN) {
-            ws.send(JSON.stringify(data));
-        }
-    });
-});
+// 实例化监听器
+const solanaListener = new SolanaListener();
 
 // 供服务器使用
-export { wss };
+export { solanaListener };

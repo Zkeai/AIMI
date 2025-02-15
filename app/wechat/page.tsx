@@ -1,7 +1,7 @@
 import React from "react";
 
 const Wechat = () => {
-  return <div>wechat</div>;
+  return <div className="">wechat</div>;
 };
 
 export default Wechat;

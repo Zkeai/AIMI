@@ -1,4 +1,5 @@
-import { AddWechatInfo } from '@/services/wechat';
+import { AddOrUpdateWechatInfo } from '@/services/wechat';
+import { IUpdateWechatParams } from '@/types';
 
 import { NextResponse } from 'next/server';
 
@@ -7,12 +8,12 @@ export async function POST(req: Request) {
 
 
     try {
-        const { ca }: { ca: string } = await req.json()
+        const { ca, wxname, params }: { ca: string, wxname: string, params: IUpdateWechatParams } = await req.json()
         if (!ca) {
             return NextResponse.json({ success: false, error: 'coinAddress is required' }, { status: 400 });
         }
 
-        const res = await AddWechatInfo(ca)
+        const res = await AddOrUpdateWechatInfo(ca, wxname, params)
 
 
 
