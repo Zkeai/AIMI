@@ -16,6 +16,20 @@
   },
   "Wechat": {
     "hotDiscussion": "实时热议",
-    "statistics": "热门统计"
+    "statistics": "热门统计",
+    "wechatInfo": "微信群信息",
+    "symbol": "符号",
+    "coinAddress": "代币地址",
+    "social": "社交",
+    "wxname": "哨兵",
+    "mc": "池子大小",
+    "openPrice": "开盘价",
+    "currentPrice": "当前价格",
+    "priceChange": "价格变化",
+    "volume": "成交量",
+    "holders": "持有人",
+    "historyLength": "历史发币次数",
+    "txCount": "交易次数",
+    "updatedAt": "更新时间"
   }
 }

@@ -49,9 +49,17 @@ export async function AddOrUpdateWechatInfo(ca: string, wxname: string, params: 
         await connectDB();
         const havePg = await Wechat.findOne({ coinAddress: ca })
 
+
         //先查询
         const coinInfo = await getPumpCoinInfoByAve(ca);
+
+
+        if (coinInfo.data === "") {
+            return "can not find Token "
+        }
         const parsedData = JSON.parse(coinInfo.data);
+
+
 
 
         const holders = parsedData.token.holders;
@@ -72,7 +80,7 @@ export async function AddOrUpdateWechatInfo(ca: string, wxname: string, params: 
         const mc = PumpCoinInfoByMint.usd_market_cap.toFixed(2);
 
         const historyLength = await getPumpHistory(creator);
-
+        console.log(historyLength)
 
         const { user, chat, chatroom } = params;
 
@@ -97,10 +105,11 @@ export async function AddOrUpdateWechatInfo(ca: string, wxname: string, params: 
             havePg.holders = holders
             havePg.historyLength = historyLength
             havePg.tx_count = tx_count
-            havePg.wxname = wxname
+
             await havePg.save()
             return havePg
         }
+        console.log(1111)
 
         await Wechat.create({ coinAddress: ca, wxname: wxname, symbol, image_uri, telegram, twitter, description, website, creator, mc, open_price, current_price_usd, price_change_1h, volume_u_24h, holders, historyLength, tx_count, userNumber: user, chatNumber: chat, chatroomNumber: chatroom })
 
@@ -170,11 +179,15 @@ function extractTwitterUsername(appendix: string): string | null {
 
 
 function formatPrice(price: number): string {
-    if (price > 0) {
-        // 如果价格大于 0，保留 2 位小数
-        return price.toFixed(2);
-    } else {
-        // 如果价格小于等于 0，保留尽可能多的小数位（不舍弃）
-        return price.toString();
+    if (price === 0) {
+        return "0"; // Return 0 if the price is exactly 0
     }
+
+    // Round the number to 2 significant digits
+    const roundedPrice = price.toPrecision(3); // toPrecision gives us the significant digits
+
+    // Remove trailing zeroes from decimals if any
+    const formattedPrice = parseFloat(roundedPrice).toString();
+
+    return formattedPrice;
 }

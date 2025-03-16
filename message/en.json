@@ -16,6 +16,20 @@
   },
   "Wechat": {
     "hotDiscussion": "Discussion",
-    "statistics": "Statistics"
+    "statistics": "Statistics",
+    "wechatInfo": "Wechat Info",
+    "symbol": "Symbol",
+    "coinAddress": "Coin Address",
+    "social": "Social",
+    "wxname": "WxName",
+    "mc": "MC",
+    "openPrice": "Open Price",
+    "currentPrice": "Current Price",
+    "priceChange": "Price Change",
+    "volume": "Volume",
+    "holders": "Holders",
+    "historyLength": "History Length",
+    "txCount": "Tx Count",
+    "updatedAt": "Updated At"
   }
 }
